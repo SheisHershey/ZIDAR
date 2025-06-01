@@ -13,7 +13,7 @@ setup(
     packages=find_packages(exclude=["tests"]),
     include_package_data=True,
     zip_safe=True,
-    python_requires=">=3.6",
+    python_requires="=3.7",
     install_requires=[
         "torch>=1.8.0",
         "gluonts>=0.9.0",
