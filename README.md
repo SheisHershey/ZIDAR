@@ -15,5 +15,5 @@ pandas                    1.1
 
 # Training and Evaluation
 
-pay attention, our module distributions in gluonts needs to be replaced.
+Attention, our module distributions in gluonts needs to be replaced.
 
