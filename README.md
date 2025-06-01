@@ -1,4 +1,4 @@
-# GraFITi
+# ZIDAR
 
 This is the source code for ZIDAR.
 
