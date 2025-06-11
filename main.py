@@ -181,19 +181,10 @@ def Segment_RMSE(test_y, test_predict):
 '''
 读取数据集
 '''
-#df = pd.read_csv('../ZIP-DeepAR代码/data/carpartsdelete80.csv', header=0)
-#df = pd.read_csv('E:/ZIP-DeepAR代码/data/carpartsdelete70.csv', header=0)
-#df = pd.read_csv('E:/ZIP-DeepAR代码/data/carpartsdeletepick.csv', header=0)
-df = pd.read_csv('E:\ZIP-DeepAR代码\data\InterSim层次聚类后的Q料202001-202302(halfmonth).csv', header=0)
-#df = pd.read_csv('E:\ZIP-DeepAR代码\data\salestv_data.csv', header=0)
-#df = pd.read_csv('E:\ZIP-DeepAR代码\data\salestv_data_filtered.csv', header=0)
+df = pd.read_csv('E:\ZIP-DeepAR代码\data\salestv_data.csv', header=0)
 print(df)
-#id_1913 = df['id'].values.tolist()
-#df = df.drop('id',axis=1)
-sku_477 = df['sku'].values.tolist()
-df = df.drop('sku',axis=1)
-#Parts_2509 = df['Part'].values.tolist()
-#df = df.drop('Part',axis=1)
+id_1913 = df['id'].values.tolist()
+df = df.drop('id',axis=1)
 
 
 #将列名转化为202001 ~ 202604月份，避免freq=15d的2-30日期问题
@@ -202,7 +193,7 @@ from datetime import datetime, timedelta
 
 date_str = '1998-01'
 date_format = '%Y-%m'
-num_months = 76
+num_months = 1913
 
 dates = []
 current_date = datetime.strptime(date_str, date_format)
@@ -251,7 +242,7 @@ for i in range(df.shape[0]):  #构造训练集，每个产品的前72个半月�
    # # 数据归一化
    # prod_data['sales'] = (prod_data['sales'] - np.min(prod_data['sales'])) / (np.max(prod_data['sales']) - np.min(prod_data['sales']))
 
-   train_dic = {"start": prod_data.iloc[0]['month'], "target": prod_data.iloc[0:72]['sales']}
+   train_dic = {"start": prod_data.iloc[0]['month'], "target": prod_data.iloc[0:1909]['sales']}
    train_list.append(train_dic)
 training_data = ListDataset(train_list, freq="1m") #输入数据格式
 print(len(training_data))
@@ -260,7 +251,7 @@ print()
 ###构造测试集，每个产品的第73~76个月的销量
 ### 为h个单步预测时间点，分别构建h个ListDataset测试集
 test_data_list = []
-for predict_day in range(73, 74): #需要单步预测的时间点（使用前t-1时间点的真实值，来预测第t个时间点的预测值)
+for predict_day in range(1910, 1911): #需要单步预测的时间点（使用前t-1时间点的真实值，来预测第t个时间点的预测值)
     test_list = []
     for i in range(df.shape[0]):
         dic = {'month': df.columns, 'sales': df.iloc[i].values}
